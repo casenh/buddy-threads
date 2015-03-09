@@ -1,0 +1,36 @@
+Adding Systemcall
+-----------------
+
+1) Edit include/uapi/asm-generic/unistd.h with:
+
+	#define __NR_buddy_thread_start 323                                                                                                                                                                      __SYSCALL(__NR_buddy_thread_start, sys_buddy_thread_start);
+
+2) Add table entry to ./arch/x86/syscalls/syscall_64.tbl
+
+	323 common  buddy_thread_start  sys_buddy_thread_start 
+
+3) Modify ./Makefile
+
+	add /buddy_thread to core-y
+
+4) Create the function in folder
+
+	#include <linux/kernel.h>                                                                                                                                                                                #include <linux/syscalls.h>
+	 
+	asmlinkage long sys_buddy_thread(void) {
+	    printk("Buddy Start");
+	    return 0;
+	}
+
+
+
+
+Modifying Scheduler
+-------------------
+
+1) Edited function "context_switch" in kernel/sched/core.c to detect if the next task
+   to be scheduled has a buddy thread.
+
+2) "current" defined in linux/sched.h always points to the current task_struct
+
+3) Added "buddy_thread" to task_struct in ./include/linux/sched.h

@@ -50,5 +50,7 @@ asmlinkage long sys_arch_prctl(int, unsigned long);
 asmlinkage long sys_mmap(unsigned long, unsigned long, unsigned long,
 			 unsigned long, unsigned long, unsigned long);
 
+asmlinkage long sys_buddy_thread(void);
+
 #endif /* CONFIG_X86_32 */
 #endif /* _ASM_X86_SYSCALLS_H */
