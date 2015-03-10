@@ -2338,8 +2338,8 @@ context_switch(struct rq *rq, struct task_struct *prev,
 	oldmm = prev->active_mm;
 
 	/* Check if buddy thread is present */
-	if(next->bt == 22)
-		printk("Buddy Thread Found");
+	//if(next->bt == 22)
+	//	printk("Buddy Thread Found");
 
 	/*
 	 * For paravirt, this is coupled with an exit in switch_to to
@@ -2771,8 +2771,6 @@ static void __sched __schedule(void)
 need_resched:
 	preempt_disable();
 	cpu = smp_processor_id();
-	if(cpu != 0)
-		printk("Sched on %d\n", cpu);
 	rq = cpu_rq(cpu);
 	rcu_note_context_switch();
 	prev = rq->curr;
@@ -2828,9 +2826,9 @@ need_resched:
 		++*switch_count;
 
 		/* Block until the buddy thread is scheduled */
-		if(next->bt != NULL) {
-			while(next->bt->state != TASK_RUNNING) { }
-		}
+		//if(next->bt != NULL) {
+		//	while(next->bt->state != TASK_RUNNING) { }
+		//}
 
 		rq = context_switch(rq, prev, next); /* unlocks the rq */
 		cpu = cpu_of(rq);
