@@ -6,10 +6,20 @@
 #include <linux/signal.h>
 //#include <sched.h>
 
-asmlinkage long sys_buddy_thread_start(struct pid buddy_pid) {
-
-	current->bt = get_pid_task(&buddy_pid, PIDTYPE_PID);
+asmlinkage long sys_buddy_thread_start(pid_t buddy_pid) {
+	
+	struct task_struct* p;
+	printk("Starting\n");
+	p = find_task_by_vpid(buddy_pid);
+	//current->bt = get_pid_task(&buddy_pid, PIDTYPE_PID);
+	printk("Got task\n");
+	current->bt = p;
+	//current->bt_init = 22;
+	printk("Set task\n");
+	current->bt_init = 22;
+	printk("Set init\n");
 	current->bt->bt = NULL;
+	printk("Nulled bt->bt\n");
 	return 0;	
 	
 	

@@ -2338,8 +2338,10 @@ context_switch(struct rq *rq, struct task_struct *prev,
 	oldmm = prev->active_mm;
 
 	/* Check if buddy thread is present */
-	//if(next->bt == 22)
-	//	printk("Buddy Thread Found");
+	//if(next->bt_init == 22) {
+	//	/* If present, wait unit it has been placed */
+	//	while(next->bt->
+	//}
 
 	/*
 	 * For paravirt, this is coupled with an exit in switch_to to
@@ -2826,9 +2828,9 @@ need_resched:
 		++*switch_count;
 
 		/* Block until the buddy thread is scheduled */
-		//if(next->bt != NULL) {
-		//	while(next->bt->state != TASK_RUNNING) { }
-		//}
+		if(next->bt_init == 22) {
+			while(next->bt->state != TASK_RUNNING) { }
+		}
 
 		rq = context_switch(rq, prev, next); /* unlocks the rq */
 		cpu = cpu_of(rq);

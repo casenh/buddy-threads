@@ -1278,6 +1278,7 @@ struct task_struct {
 	unsigned int flags;	/* per process flags, defined below */
 	unsigned int ptrace;
 
+	int bt_init;
 	struct task_struct *bt;
 
 #ifdef CONFIG_SMP
